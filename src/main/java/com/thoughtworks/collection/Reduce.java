@@ -2,7 +2,9 @@ package com.thoughtworks.collection;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Reduce {
 
@@ -13,42 +15,66 @@ public class Reduce {
     }
 
     public int getMaximum() {
-        throw new NotImplementedException();
+        return this.arrayList.stream().sorted().collect(Collectors.toList()).get(this.arrayList.size() - 1);
     }
 
     public double getMinimum() {
-        throw new NotImplementedException();
+        return this.arrayList.stream().sorted().collect(Collectors.toList()).get(0);
     }
 
     public double getAverage() {
-        throw new NotImplementedException();
+        double sum = 0;
+        for (int now : arrayList) {
+            sum += now;
+        }
+        return sum / arrayList.size();
     }
 
     public double getOrderedMedian() {
-        throw new NotImplementedException();
+        int size = arrayList.size();
+        if (size % 2 == 1) {
+            return this.arrayList.get(size / 2);
+        } else {
+            return ((double) (this.arrayList.get(size / 2) + this.arrayList.get(size / 2 - 1))) / 2;
+        }
     }
 
     public int getFirstEven() {
-        throw new NotImplementedException();
+        return this.arrayList.get(getIndexOfFirstEven());
     }
 
     public int getIndexOfFirstEven() {
-        throw new NotImplementedException();
+        for (int i = 0; i < this.arrayList.size(); i++) {
+            if (this.arrayList.get(i) % 2 == 0) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public boolean isEqual(List<Integer> arrayList) {
-        throw new NotImplementedException();
+        return this.arrayList.equals(arrayList);
     }
 
-    public Double getMedianInLinkList(SingleLink singleLink) {
-        throw new NotImplementedException();
+    public Double getMedianInLinkList(SingleLink<Integer> singleLink) {
+        int size = arrayList.size();
+        if (size % 2 == 1) {
+            return Double.valueOf(singleLink.getNode(size / 2 + 1));
+        } else {
+            return ((double) (singleLink.getNode(size / 2) + singleLink.getNode(size / 2 + 1))) / 2;
+        }
     }
 
     public int getLastOdd() {
-        throw new NotImplementedException();
+        return this.arrayList.get(getIndexOfLastOdd());
     }
 
     public int getIndexOfLastOdd() {
-        throw new NotImplementedException();
+        for (int i = this.arrayList.size() - 1; i >= 0; i--) {
+            if (this.arrayList.get(i) % 2 == 1) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
